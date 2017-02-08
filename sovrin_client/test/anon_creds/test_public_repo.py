@@ -85,8 +85,8 @@ def submittedPublicRevocationKey(submittedPublicKeys):
 def testSubmitSchema(submittedSchemaDefGvt, schemaDefGvt):
     assert submittedSchemaDefGvt
     assert submittedSchemaDefGvt.seqId
-    submittedSchemaDefGvt = submittedSchemaDefGvt._replace(
-        seqId=None)  # initial claim def didn't have seqNo
+    # initial schema didn't have seqNo
+    submittedSchemaDefGvt = submittedSchemaDefGvt._replace(seqId=None)
     assert submittedSchemaDefGvt == schemaDefGvt
 
 

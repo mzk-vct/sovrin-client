@@ -306,13 +306,13 @@ def testAcceptUnSyncedFaberInviteWhenNotConnected(be, do, aliceCli,
 #     connectIfNotAlreadyConnected(do, connectedToTest, aliceCli, faberMap)
 #
 #     checkWalletStates(aliceCli, totalLinks=1, totalAvailableClaims=0,
-#                       totalClaimDefs=0, totalClaimsRcvd=0)
+#                       totalSchemas=0, totalClaimsRcvd=0)
 #     do('accept invitation from {inviter}',
 #        within=13,
 #        expect=acceptUnSyncedWithoutEndpointWhenConnected,
 #        mapper=faberMap)
 #     checkWalletStates(aliceCli, totalLinks=1, totalAvailableClaims=0,
-#                       totalClaimDefs=0, totalClaimsRcvd=0)
+#                       totalSchemas=0, totalClaimsRcvd=0)
 
 
 @pytest.fixture(scope="module")
@@ -827,7 +827,7 @@ def jobCertClaimRequested(be, do, aliceCli, preRequisite,
                         jobCertificateClaimMap["version"]
         aliceCli.activeWallet._schemas.pop((name, version, faberId))
 
-    # Removing claim def to check if it fetches the claim def again or not
+    # Removing schema to check if it fetches the schema again or not
     # removeSchema()
 
     be(aliceCli)
