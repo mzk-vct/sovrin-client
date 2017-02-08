@@ -4,11 +4,12 @@ import re
 
 import pytest
 from plenum.common.eventually import eventually
-
 from anoncreds.protocol.types import SchemaKey, ID
-from sovrin_client.agent.agent import createAndRunAgent
+from plenum.common.eventually import eventually
 from sovrin_common.setup_util import Setup
 from sovrin_common.txn import ENDPOINT
+
+from sovrin_client.agent.agent import createAndRunAgent
 from sovrin_client.test.agent.acme import AcmeAgent
 from sovrin_client.test.agent.faber import FaberAgent
 from sovrin_client.test.agent.helper import buildFaberWallet, buildAcmeWallet, \
@@ -16,12 +17,12 @@ from sovrin_client.test.agent.helper import buildFaberWallet, buildAcmeWallet, \
 from sovrin_client.test.agent.thrift import ThriftAgent
 from sovrin_client.test.cli.conftest import faberMap, acmeMap, \
     thriftMap
+from sovrin_client.test.cli.helper import newCLI
 from sovrin_client.test.cli.test_tutorial import syncInvite, acceptInvitation, \
     aliceRequestedTranscriptClaim, jobApplicationClaimSent, \
     jobCertClaimRequested, bankBasicClaimSent, bankKYCClaimSent, \
     setPromptAndKeyring
 from sovrin_client.test.helper import TestClient
-from sovrin_client.test.cli.helper import newCLI
 
 concerningLogLevels = [logging.WARNING,
                        logging.ERROR,
@@ -49,6 +50,7 @@ def testGettingStartedTutorialAgainstSandbox(newGuyCLI, be, do):
     # TODO finish the entire set of steps
 
 
+@pytest.mark.skipif('sys.platform == "win32"', reason='SOV-384')
 def testManual(do, be, poolNodesStarted, poolTxnStewardData, philCLI,
                connectedToTest, nymAddedOut, attrAddedOut,
                schemaAdded, issuerKeyAdded, aliceCLI, newKeyringOut, aliceMap,
