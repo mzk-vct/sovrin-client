@@ -143,7 +143,7 @@ class BulldogAgent(TestWalletedAgent):
                                             attributes=attr)
 
     async def addSchemasToWallet(self):
-        schema = await self.issuer.getSchema(self._schemaKey.name,
+        schema = await self.issuer.genSchema(self._schemaKey.name,
                                                  self._schemaKey.version,
                                                  self._attrDef.attribNames(),
                                                  'CL')
