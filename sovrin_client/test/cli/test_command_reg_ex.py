@@ -89,7 +89,7 @@ def testAddAttrProverRegEx(grammar):
 def testSendIssuerKeyRegEx(grammar):
     matchedVars = getMatchedVariables(grammar, "send ISSUER_KEY ref=15")
     assertCliTokens(matchedVars, {
-        "send_isr_key": "send ISSUER_KEY", REF: "15"})
+        "send_claim_def": "send ISSUER_KEY", REF: "15"})
 
 
 def testShowFileCommandRegEx(grammar):

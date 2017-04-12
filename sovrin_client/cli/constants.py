@@ -53,7 +53,7 @@ SEND_SCHEMA_REG_EX = "(\s*(?P<send_schema>send\s+{schema})" \
                      "\s+(?P<keys_key>keys=)\s*(?P<keys>[a-zA-Z-_,\s]+)\s*)".format(
     schema=SovrinTransactions.SCHEMA.name)
 
-SEND_CLAIM_DEF_REG_EX = "(\s*(?P<send_isr_key>send\s+{issKey})" \
+SEND_CLAIM_DEF_REG_EX = "(\s*(?P<send_claim_def>send\s+{issKey})" \
                          "\s+(?P<ref_key>ref=)\s*(?P<ref>[0-9]+)\s*)".format(issKey=SovrinTransactions.CLAIM_DEF.name)
 
 

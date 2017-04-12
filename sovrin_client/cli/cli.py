@@ -128,7 +128,7 @@ class SovrinCli(PlenumCli):
             'send_get_nym',
             'send_attrib',
             'send_schema',
-            'send_isr_key',
+            'send_claim_def',
             'send_node',
             'send_pool_upg',
             'add_genesis',
@@ -165,7 +165,7 @@ class SovrinCli(PlenumCli):
         completers["send_get_nym"] = PhraseWordCompleter(sendGetNymCmd.id)
         completers["send_attrib"] = PhraseWordCompleter(sendAttribCmd.id)
         completers["send_schema"] = PhraseWordCompleter(sendSchemaCmd.id)
-        completers["send_isr_key"] = PhraseWordCompleter(sendClaimDefCmd.id)
+        completers["send_claim_def"] = PhraseWordCompleter(sendClaimDefCmd.id)
         completers["send_node"] = PhraseWordCompleter(sendNodeCmd.id)
         completers["send_pool_upg"] = PhraseWordCompleter(sendPoolUpgCmd.id)
         completers["add_genesis"] = PhraseWordCompleter(
@@ -711,7 +711,7 @@ class SovrinCli(PlenumCli):
             return True
 
     def _sendClaimDefAction(self, matchedVars):
-        if matchedVars.get('send_isr_key') == sendClaimDefCmd.id:
+        if matchedVars.get('send_claim_def') == sendClaimDefCmd.id:
             if not self.canMakeSovrinRequest:
                 return True
             reference = int(matchedVars.get(REF))
