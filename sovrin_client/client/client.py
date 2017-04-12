@@ -169,7 +169,7 @@ class Client(PlenumClient):
                     self.graphStore.addSchemaTxnToGraph(result)
             elif result[TXN_TYPE] == CLAIM_DEF:
                 if self.graphStore:
-                    self.graphStore.addIssuerKeyTxnToGraph(result)
+                    self.graphStore.addClaimDefTxnToGraph(result)
                     # else:
                     #    logger.debug("Unknown type {}".format(result[TXN_TYPE]))
 

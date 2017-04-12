@@ -54,7 +54,7 @@ SEND_SCHEMA_REG_EX = "(\s*(?P<send_schema>send\s+{schema})" \
     schema=SovrinTransactions.SCHEMA.name)
 
 SEND_CLAIM_DEF_REG_EX = "(\s*(?P<send_isr_key>send\s+{issKey})" \
-                         "\s+(?P<ref_key>ref=)\s*(?P<ref>[0-9]+)\s*)".format(issKey=SovrinTransactions.ISSUER_KEY.name)
+                         "\s+(?P<ref_key>ref=)\s*(?P<ref>[0-9]+)\s*)".format(issKey=SovrinTransactions.CLAIM_DEF.name)
 
 
 ADD_ATTRS_PROVER_REG_EX = "(\s*(?P<add_attrs>attribute \s+ known \s+ to) " \
