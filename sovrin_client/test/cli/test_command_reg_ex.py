@@ -86,10 +86,10 @@ def testAddAttrProverRegEx(grammar):
                         "attribute known to BYU first_name=Tyler, last_name=Ruff, birth_date=12/17/1991, undergrad=True, postgrad=True, expiry_date=12/31/2101")
 
 
-def testSendIssuerKeyRegEx(grammar):
-    matchedVars = getMatchedVariables(grammar, "send ISSUER_KEY ref=15")
+def testSendClaimDefRegEx(grammar):
+    matchedVars = getMatchedVariables(grammar, "send CLAIM_DEF ref=15")
     assertCliTokens(matchedVars, {
-        "send_claim_def": "send ISSUER_KEY", REF: "15"})
+        "send_claim_def": "send CLAIM_DEF", REF: "15"})
 
 
 def testShowFileCommandRegEx(grammar):

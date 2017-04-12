@@ -1776,7 +1776,7 @@ class SovrinCli(PlenumCli):
         mappings['sendNodeAction'] = sendNodeCmd
         mappings['sendPoolUpgAction'] = sendPoolUpgCmd
         mappings['sendSchemaAction'] = sendSchemaCmd
-        mappings['sendIssuerKeyAction'] = sendClaimDefCmd
+        mappings['sendClaimDefAction'] = sendClaimDefCmd
         mappings['showFile'] = showFileCmd
         mappings['loadFile'] = loadFileCmd
         mappings['showLink'] = showLinkCmd
