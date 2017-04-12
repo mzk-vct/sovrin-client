@@ -8,7 +8,7 @@ attribName = SovrinTransactions.ATTRIB.name
 nodeName = SovrinTransactions.NODE.name
 schemaName = SovrinTransactions.SCHEMA.name
 poolUpgradeName = SovrinTransactions.POOL_UPGRADE.name
-issuerKeyName = SovrinTransactions.ISSUER_KEY.name
+claimDefName = SovrinTransactions.CLAIM_DEF.name
 
 sendNymCmd = Command(
     id="send {nym}".format(nym=nymName),
@@ -63,10 +63,10 @@ sendSchemaCmd = Command(
     examples="send {schema} name=Degree version=1.0 type=CL keys=undergrad,last_name,first_name,birth_date,postgrad,expiry_date".format(schema=schemaName))
 
 sendIssuerKeyCmd = Command(
-    id="send {issuerKey}".format(issuerKey=issuerKeyName),
+    id="send {issuerKey}".format(issuerKey=claimDefName),
     title="Adds issuer keys for given schema",
-    usage="send {issuerKey} ref=<ref-no-of-SCHEMA-txn>".format(issuerKey=issuerKeyName),
-    examples="send {issuerKey} ref=10".format(issuerKey=issuerKeyName))
+    usage="send {issuerKey} ref=<ref-no-of-SCHEMA-txn>".format(issuerKey=claimDefName),
+    examples="send {issuerKey} ref=10".format(issuerKey=claimDefName))
 
 sendProofRequestCmd = Command(
     id="send proofreq",

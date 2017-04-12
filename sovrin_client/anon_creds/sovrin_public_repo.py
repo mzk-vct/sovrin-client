@@ -8,7 +8,7 @@ from plenum.common.constants import TARGET_NYM, TXN_TYPE, DATA, NAME, \
     VERSION, TYPE, ORIGIN
 
 from sovrin_common.constants import GET_SCHEMA, SCHEMA, ATTR_NAMES, \
-    GET_ISSUER_KEY, REF, ISSUER_KEY, PRIMARY, REVOCATION
+    GET_CLAIM_DEF, REF, CLAIM_DEF, PRIMARY, REVOCATION
 
 from anoncreds.protocol.repo.public_repo import PublicRepo
 from anoncreds.protocol.types import Schema, ID, PublicKey, \
@@ -69,7 +69,7 @@ class SovrinPublicRepo(PublicRepo):
 
     async def getPublicKey(self, id: ID) -> PublicKey:
         op = {
-            TXN_TYPE: GET_ISSUER_KEY,
+            TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId
         }
@@ -82,7 +82,7 @@ class SovrinPublicRepo(PublicRepo):
 
     async def getPublicKeyRevocation(self, id: ID) -> RevocationPublicKey:
         op = {
-            TXN_TYPE: GET_ISSUER_KEY,
+            TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId
         }
@@ -133,7 +133,7 @@ class SovrinPublicRepo(PublicRepo):
         pkData = pk.toStrDict()
         pkRData = pkR.toStrDict()
         op = {
-            TXN_TYPE: ISSUER_KEY,
+            TXN_TYPE: CLAIM_DEF,
             REF: id.schemaId,
             DATA: {PRIMARY: pkData, REVOCATION: pkRData}
         }
