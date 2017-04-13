@@ -61,36 +61,35 @@ class SovrinPublicRepo(PublicRepo):
         }
         data, seqNo = await self._sendGetReq(op)
         return Schema(name=data[NAME],
-                               version=data[VERSION],
-                               attrNames=data[ATTR_NAMES].split(","),
-                               issuerId=data[ORIGIN],
-                               seqId=seqNo)
+                      version=data[VERSION],
+                      attrNames=data[ATTR_NAMES].split(","),
+                      issuerId=data[ORIGIN],
+                      seqId=seqNo)
 
-    async def getPublicKey(self, id: ID) -> PublicKey:
+    async def getPublicKey(self, id: ID, sigType) -> PublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
-            ORIGIN: id.schemaKey.issuerId
+            ORIGIN: id.schemaKey.issuerId,
+            DATA: {TYPE: sigType}
         }
-
         data, seqNo = await self._sendGetReq(op)
-
         data = data[DATA][PRIMARY]
         pk = PublicKey.fromStrDict(data)._replace(seqId=seqNo)
         return pk
 
-    async def getPublicKeyRevocation(self, id: ID) -> RevocationPublicKey:
+    async def getPublicKeyRevocation(self,
+                                     id: ID,
+                                     sigType) -> RevocationPublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
-            ORIGIN: id.schemaKey.issuerId
+            ORIGIN: id.schemaKey.issuerId,
+            DATA: {TYPE: sigType}
         }
-
         data, seqNo = await self._sendGetReq(op)
-
         if not data:
             return None
-
         data = data[DATA][REVOCATION]
         pkR = RevocationPublicKey.fromStrDict(data)._replace(seqId=seqNo)
         return pkR
