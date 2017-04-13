@@ -125,7 +125,10 @@ class SovrinPublicRepo(PublicRepo):
                                  seqId=seqNo)
         return schema
 
-    async def submitPublicKeys(self, id: ID, pk: PublicKey,
+    async def submitPublicKeys(self,
+                               id: ID,
+                               signatureType,
+                               pk: PublicKey,
                                pkR: RevocationPublicKey = None) -> (
             PublicKey, RevocationPublicKey):
         pkData = pk.toStrDict()
@@ -133,7 +136,7 @@ class SovrinPublicRepo(PublicRepo):
         op = {
             TXN_TYPE: CLAIM_DEF,
             REF: id.schemaId,
-            DATA: {PRIMARY: pkData, REVOCATION: pkRData}
+            DATA: {TYPE: signatureType, PRIMARY: pkData, REVOCATION: pkRData}
         }
 
         data, seqNo = await self._sendSubmitReq(op)
