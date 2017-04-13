@@ -62,7 +62,6 @@ class SovrinPublicRepo(PublicRepo):
         data, seqNo = await self._sendGetReq(op)
         return Schema(name=data[NAME],
                                version=data[VERSION],
-                               schemaType=data[TYPE],
                                attrNames=data[ATTR_NAMES].split(","),
                                issuerId=data[ORIGIN],
                                seqId=seqNo)
@@ -114,7 +113,6 @@ class SovrinPublicRepo(PublicRepo):
             DATA: {
                 NAME: schema.name,
                 VERSION: schema.version,
-                TYPE: schema.schemaType,
                 ATTR_NAMES: ",".join(schema.attrNames)
             }
         }
