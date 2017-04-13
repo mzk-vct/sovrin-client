@@ -59,14 +59,14 @@ sendPoolUpgCmd = Command(
 sendSchemaCmd = Command(
     id="send {schema}".format(schema=schemaName),
     title="Adds schema to sovrin",
-    usage="send {schema} name=<schema-name> version=<version> type=<type> keys=<comma separated attributes>".format(schema=schemaName),
-    examples="send {schema} name=Degree version=1.0 type=CL keys=undergrad,last_name,first_name,birth_date,postgrad,expiry_date".format(schema=schemaName))
+    usage="send {schema} name=<schema-name> version=<version> keys=<comma separated attributes>".format(schema=schemaName),
+    examples="send {schema} name=Degree version=1.0 keys=undergrad,last_name,first_name,birth_date,postgrad,expiry_date".format(schema=schemaName))
 
 sendClaimDefCmd = Command(
     id="send {claimDef}".format(claimDef=claimDefName),
     title="Adds issuer keys for given schema",
-    usage="send {claimDef} ref=<ref-no-of-SCHEMA-txn>".format(claimDef=claimDefName),
-    examples="send {claimDef} ref=10".format(claimDef=claimDefName))
+    usage="send {claimDef} ref=<ref-no-of-SCHEMA-txn> type=<type>".format(claimDef=claimDefName),
+    examples="send {claimDef} ref=10 type=CL".format(claimDef=claimDefName))
 
 sendProofRequestCmd = Command(
     id="send proofreq",
