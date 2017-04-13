@@ -66,12 +66,14 @@ class SovrinPublicRepo(PublicRepo):
                       issuerId=data[ORIGIN],
                       seqId=seqNo)
 
-    async def getPublicKey(self, id: ID, sigType) -> PublicKey:
+    async def getPublicKey(self,
+                           id: ID,
+                           signatureType) -> PublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId,
-            DATA: {TYPE: sigType}
+            DATA: {TYPE: signatureType}
         }
         data, seqNo = await self._sendGetReq(op)
         data = data[DATA][PRIMARY]
@@ -80,12 +82,12 @@ class SovrinPublicRepo(PublicRepo):
 
     async def getPublicKeyRevocation(self,
                                      id: ID,
-                                     sigType) -> RevocationPublicKey:
+                                     signatureType) -> RevocationPublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId,
-            DATA: {TYPE: sigType}
+            DATA: {TYPE: signatureType}
         }
         data, seqNo = await self._sendGetReq(op)
         if not data:
@@ -115,9 +117,7 @@ class SovrinPublicRepo(PublicRepo):
                 ATTR_NAMES: ",".join(schema.attrNames)
             }
         }
-
         data, seqNo = await self._sendSubmitReq(op)
-
         if not seqNo:
             return None
         schema = schema._replace(issuerId=self.wallet.defaultId,
@@ -128,8 +128,8 @@ class SovrinPublicRepo(PublicRepo):
                                id: ID,
                                signatureType,
                                pk: PublicKey,
-                               pkR: RevocationPublicKey = None) -> (
-            PublicKey, RevocationPublicKey):
+                               pkR: RevocationPublicKey = None) -> \
+            (PublicKey, RevocationPublicKey):
         pkData = pk.toStrDict()
         pkRData = pkR.toStrDict()
         op = {
