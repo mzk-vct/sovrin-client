@@ -15,6 +15,7 @@ from anoncreds.protocol.types import Schema, ID, PublicKey, \
     RevocationPublicKey, AccumulatorPublicKey, \
     Accumulator, TailsType, TimestampType
 from sovrin_common.types import Request
+from sovrin_common.constants import SIGNATURE_TYPE
 
 
 def _ensureReqCompleted(reqKey, client, clbk):
@@ -87,7 +88,7 @@ class SovrinPublicRepo(PublicRepo):
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId,
-            DATA: {TYPE: signatureType}
+            SIGNATURE_TYPE: signatureType
         }
         data, seqNo = await self._sendGetReq(op)
         if not data:
@@ -140,7 +141,8 @@ class SovrinPublicRepo(PublicRepo):
         op = {
             TXN_TYPE: CLAIM_DEF,
             REF: id.schemaId,
-            DATA: data
+            DATA: data,
+            SIGNATURE_TYPE: signatureType
         }
 
         data, seqNo = await self._sendSubmitReq(op)
