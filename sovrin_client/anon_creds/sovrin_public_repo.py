@@ -68,7 +68,7 @@ class SovrinPublicRepo(PublicRepo):
 
     async def getPublicKey(self,
                            id: ID,
-                           signatureType) -> PublicKey:
+                           signatureType = 'CL') -> PublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
@@ -82,7 +82,7 @@ class SovrinPublicRepo(PublicRepo):
 
     async def getPublicKeyRevocation(self,
                                      id: ID,
-                                     signatureType) -> RevocationPublicKey:
+                                     signatureType = 'CL') -> RevocationPublicKey:
         op = {
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
@@ -126,16 +126,21 @@ class SovrinPublicRepo(PublicRepo):
 
     async def submitPublicKeys(self,
                                id: ID,
-                               signatureType,
                                pk: PublicKey,
-                               pkR: RevocationPublicKey = None) -> \
+                               pkR: RevocationPublicKey = None,
+                               signatureType = 'CL') -> \
             (PublicKey, RevocationPublicKey):
-        pkData = pk.toStrDict()
-        pkRData = pkR.toStrDict()
+
+        data = {TYPE: signatureType}
+        if pk is not None:
+            data[PRIMARY] = pk.toStrDict()
+        if pkR is not None:
+            data[REVOCATION] = pkR.toStrDict()
+
         op = {
             TXN_TYPE: CLAIM_DEF,
             REF: id.schemaId,
-            DATA: {TYPE: signatureType, PRIMARY: pkData, REVOCATION: pkRData}
+            DATA: data
         }
 
         data, seqNo = await self._sendSubmitReq(op)
@@ -143,7 +148,10 @@ class SovrinPublicRepo(PublicRepo):
         if not seqNo:
             return None
         pk = pk._replace(seqId=seqNo)
-        pkR = pkR._replace(seqId=seqNo)
+
+        if pkR is not None:
+            pkR = pkR._replace(seqId=seqNo)
+
         return pk, pkR
 
     async def submitAccumulator(self, id: ID, accumPK: AccumulatorPublicKey,

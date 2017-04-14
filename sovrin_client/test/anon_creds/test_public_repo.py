@@ -27,8 +27,11 @@ def issuerGvt(publicRepo):
 
 @pytest.fixture(scope="module")
 def schemaDefGvt(stewardWallet):
-    return Schema('GVT', '1.0', GVT.attribNames(), 'CL',
-                           stewardWallet.defaultId)
+    return Schema(name='GVT',
+                  version='1.0',
+                  attrNames=GVT.attribNames(),
+                  issuerId=stewardWallet.defaultId,
+                  seqId=None)
 
 
 @pytest.fixture(scope="module")
@@ -87,10 +90,11 @@ def submittedPublicRevocationKey(submittedPublicKeys):
 def testSubmitSchema(submittedSchemaDefGvt, schemaDefGvt):
     assert submittedSchemaDefGvt
     assert submittedSchemaDefGvt.seqId
-    # initial schema didn't have seqNo
-    submittedSchemaDefGvt = submittedSchemaDefGvt._replace(seqId=None)
-    assert submittedSchemaDefGvt == schemaDefGvt
-
+    # initial schema has stub seqno - excluding seqno from comparison
+    def withNoSeqId(schema):
+        schema._replace(seqId=None)
+    assert withNoSeqId(submittedSchemaDefGvt) == \
+           withNoSeqId(submittedSchemaDefGvt)
 
 def testGetSchema(submittedSchemaDefGvt, publicRepo, looper):
     schema = looper.run(
