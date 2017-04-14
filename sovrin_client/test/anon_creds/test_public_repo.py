@@ -68,8 +68,10 @@ def submittedPublicKeys(submittedSchemaDefGvtID, publicRepo, publicSecretKey,
                         publicSecretRevocationKey, looper):
     pk, sk = publicSecretKey
     pkR, skR = publicSecretRevocationKey
-    return looper.run(
-        publicRepo.submitPublicKeys(id=submittedSchemaDefGvtID, pk=pk, pkR=pkR))
+    return looper.run(publicRepo.submitPublicKeys(id=submittedSchemaDefGvtID,
+                                                  pk=pk,
+                                                  pkR=pkR,
+                                                  signatureType='CL'))
 
 
 @pytest.fixture(scope="module")
@@ -102,7 +104,8 @@ def testSubmitPublicKey(submittedPublicKeys):
 
 def testGetPrimaryPublicKey(submittedSchemaDefGvtID, submittedPublicKey,
                             publicRepo, looper):
-    pk = looper.run(publicRepo.getPublicKey(id=submittedSchemaDefGvtID))
+    pk = looper.run(publicRepo.getPublicKey(id=submittedSchemaDefGvtID,
+                                            signatureType='CL'))
     assert pk == submittedPublicKey
 
 
@@ -110,7 +113,8 @@ def testGetRevocationPublicKey(submittedSchemaDefGvtID,
                                submittedPublicRevocationKey,
                                publicRepo, looper):
     pk = looper.run(
-        publicRepo.getPublicKeyRevocation(id=submittedSchemaDefGvtID))
+        publicRepo.getPublicKeyRevocation(id=submittedSchemaDefGvtID,
+                                          signatureType='CL'))
 
     if sys.platform == 'win32':
         assert pk
