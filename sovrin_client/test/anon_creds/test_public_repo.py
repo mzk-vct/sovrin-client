@@ -94,7 +94,7 @@ def testSubmitSchema(submittedSchemaDefGvt, schemaDefGvt):
     def withNoSeqId(schema):
         schema._replace(seqId=None)
     assert withNoSeqId(submittedSchemaDefGvt) == \
-           withNoSeqId(submittedSchemaDefGvt)
+           withNoSeqId(schemaDefGvt)
 
 def testGetSchema(submittedSchemaDefGvt, publicRepo, looper):
     schema = looper.run(
