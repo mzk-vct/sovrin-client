@@ -74,7 +74,7 @@ class SovrinPublicRepo(PublicRepo):
             TXN_TYPE: GET_CLAIM_DEF,
             REF: id.schemaId,
             ORIGIN: id.schemaKey.issuerId,
-            DATA: {TYPE: signatureType}
+            SIGNATURE_TYPE: signatureType
         }
         data, seqNo = await self._sendGetReq(op)
         data = data[DATA][PRIMARY]
