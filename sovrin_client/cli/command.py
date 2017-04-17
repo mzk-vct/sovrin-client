@@ -65,8 +65,8 @@ sendSchemaCmd = Command(
 sendClaimDefCmd = Command(
     id="send {claimDef}".format(claimDef=claimDefName),
     title="Adds issuer keys for given schema",
-    usage="send {claimDef} ref=<ref-no-of-SCHEMA-txn> type=<type>".format(claimDef=claimDefName),
-    examples="send {claimDef} ref=10 type=CL".format(claimDef=claimDefName))
+    usage="send {claimDef} ref=<ref-no-of-SCHEMA-txn> signature_type=<type>".format(claimDef=claimDefName),
+    examples="send {claimDef} ref=10 signature_type=CL".format(claimDef=claimDefName))
 
 sendProofRequestCmd = Command(
     id="send proofreq",

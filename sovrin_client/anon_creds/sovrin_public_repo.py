@@ -132,7 +132,7 @@ class SovrinPublicRepo(PublicRepo):
                                signatureType = 'CL') -> \
             (PublicKey, RevocationPublicKey):
 
-        data = {TYPE: signatureType}
+        data = {}
         if pk is not None:
             data[PRIMARY] = pk.toStrDict()
         if pkR is not None:
