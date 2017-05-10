@@ -21,16 +21,26 @@ import sys
 # So put all other required imports after loadPlugins function call below
 from plenum.common.plugin_helper import loadPlugins
 from sovrin_common.config_util import getConfig
-
-logging.root.handlers = []
-logger = logging.getLogger()
-logger.propagate = False
-logger.disabled = True
+from stp_core.common.log import getlogger, Logger
 
 config = getConfig()
 baseDir = config.baseDir
 if not os.path.exists(baseDir):
     os.makedirs(baseDir)
+
+# TODO: this logging initialization is just a temporary workaround
+
+# logging.root.handlers = []
+# logger = logging.getLogger()
+# logger.propagate = False
+# logger.disabled = True
+
+logFileName = os.path.join(config.baseDir, "cli" + ".log")
+Logger(config)
+Logger().enableFileLogging(logFileName)
+logger = getlogger()
+
+
 loadPlugins(baseDir)
 
 # NOTE: Put all regular imports below (not related to loadplugin)
