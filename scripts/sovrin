@@ -38,8 +38,9 @@ if not os.path.exists(baseDir):
 logFileName = os.path.join(config.baseDir, "cli" + ".log")
 Logger(config)
 Logger().enableFileLogging(logFileName)
+Logger().enableStdLogging()
 logger = getlogger()
-
+logger.debug("You can find logs in {}".format(logFileName))
 
 loadPlugins(baseDir)
 
