@@ -13,13 +13,11 @@ $ sovrin "new nodes all"
 
 """
 
-import logging
 import os
 import sys
 
 # NOTE: Loading of plugin should happen as early as possible
 # So put all other required imports after loadPlugins function call below
-from plenum.common.plugin_helper import loadPlugins
 from sovrin_common.config_util import getConfig
 from stp_core.common.log import getlogger, Logger
 
@@ -42,6 +40,7 @@ Logger().enableStdLogging()
 logger = getlogger()
 logger.debug("You can find logs in {}".format(logFileName))
 
+from plenum.common.plugin_helper import loadPlugins
 loadPlugins(baseDir)
 
 # NOTE: Put all regular imports below (not related to loadplugin)
