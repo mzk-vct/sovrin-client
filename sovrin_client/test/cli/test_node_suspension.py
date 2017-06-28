@@ -6,6 +6,8 @@ import pytest
 
 from sovrin_client.test.cli.helper import doSendNodeCmd
 
+whitelist = ["cannot connect to Node6 because there is no public key for it"]
+
 
 def testSuspendNode(be, do, trusteeCli, newNodeAdded):
     """
@@ -33,7 +35,6 @@ def testSuspendNode(be, do, trusteeCli, newNodeAdded):
               expMsgs=['node already has the same data as requested'])
 
 
-@pytest.mark.skip(reason='INDY-133. Broken compatibility')
 def testSuspendNodeWhichWasNeverActive(be, do, trusteeCli, nymAddedOut,
                                        poolNodesStarted, trusteeMap):
     """
@@ -44,10 +45,10 @@ def testSuspendNodeWhichWasNeverActive(be, do, trusteeCli, nymAddedOut,
     newStewardSeed = '0000000000000000000KellySteward2'
     newStewardIdr = 'DqCx7RFEpSUMZbV2mH89XPH6JT3jMvDNU55NTnBHsQCs'
     be(trusteeCli)
-    do('send NYM dest={{remote}} role={role}'.format(
-        role=Roles.STEWARD.name),
-       within=5,
-       expect=nymAddedOut, mapper={'remote': newStewardIdr})
+    do('send NYM dest={{remote}} role={role}'
+       .format(role=Roles.STEWARD.name),
+               within=5,
+               expect=nymAddedOut, mapper={'remote': newStewardIdr})
     do('new key with seed {}'.format(newStewardSeed))
     nport, cport = (_[1] for _ in genHa(2))
     nodeId = '6G9QhQa3HWjRKeRmEvEkLbWWf2t7cw6KLtafzi494G4G'
@@ -60,6 +61,7 @@ def testSuspendNodeWhichWasNeverActive(be, do, trusteeCli, nymAddedOut,
                         'node_port': nport
                         }
     }
+
     doSendNodeCmd(do, newNodeVals)
 
     for node in poolNodesStarted.nodes.values():
